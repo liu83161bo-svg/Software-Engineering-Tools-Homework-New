@@ -1,4 +1,4 @@
-name: CI
+name: Homework 1 skeleton with working Makefile and CI
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
       with:
         python-version: '3.11'
     - name: Install dependencies
-      run: pip install -r requirements.txt
+      run: make setup
     - name: Run tests
       run: make test
     - name: Data check
