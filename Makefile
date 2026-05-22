@@ -1,4 +1,4 @@
-.PHONY: setup test data-check eval-gate slo-gate rollback
+.PHONY: setup test data-check eval-gate slo-gate rollback test-safety
 
 setup:
 	pip install -r requirements.txt
@@ -14,6 +14,9 @@ eval-gate:
 
 slo-gate:
 	python pipelines/slo_gate.py
+
+test-safety:
+	pytest tests/test_safety.py -v
 
 rollback:
 	@echo "Rolling back to previous model version..."

@@ -16,6 +16,11 @@ jobs:
         python-version: '3.11'
     - name: Install dependencies
       run: make setup
+    # Secret scanning – hard fail (no continue-on-error)
+    - name: Secret scanning with gitleaks
+      uses: gitleaks/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Run unit tests
       run: make test
     - name: Run data quality checks
@@ -24,3 +29,5 @@ jobs:
       run: make eval-gate
     - name: Run SLO gate
       run: make slo-gate
+    - name: Run safety tests
+      run: make test-safety

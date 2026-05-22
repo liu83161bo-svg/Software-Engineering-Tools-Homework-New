@@ -1,0 +1,45 @@
+tools:
+  - name: classify_eeg
+    description: "Classify age from LFP signal array"
+    permission_level: "read"
+    input_schema:
+      type: object
+      properties:
+        signal:
+          type: array
+          items: { type: number }
+          minItems: 1000
+          maxItems: 1000
+        subject_id:
+          type: string
+          pattern: "^sub\\d{3}$"
+      required: [signal]
+    confirmation_required: false
+
+  - name: get_patient_metadata
+    description: "Retrieve anonymized metadata for a patient"
+    permission_level: "read"
+    input_schema:
+      type: object
+      properties:
+        patient_id:
+          type: string
+          pattern: "^PAT_\\d{4}$"
+      required: [patient_id]
+    confirmation_required: false
+
+  - name: delete_patient_data
+    description: "Delete a patient's data (admin only)"
+    permission_level: "write"
+    input_schema:
+      type: object
+      properties:
+        patient_id:
+          type: string
+          pattern: "^PAT_\\d{4}$"
+        reason:
+          type: string
+          maxLength: 500
+      required: [patient_id, reason]
+    confirmation_required: true
+    allowed_roles: ["admin"]
