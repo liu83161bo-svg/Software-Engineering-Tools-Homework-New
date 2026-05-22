@@ -1,4 +1,4 @@
-name: Homework 1 skeleton with working Makefile and CI
+name: CI
 
 on:
   push:
