@@ -15,10 +15,10 @@ jobs:
       with:
         python-version: '3.11'
     - name: Install dependencies
-      run: pip install -r requirements.txt
-    - name: Run all tests (including data checks)
+      run: make setup
+    - name: Run unit tests
       run: make test
-    - name: Run dedicated data contract checks
+    - name: Run data quality checks
       run: make data-check
-    - name: Eval gate (placeholder)
+    - name: Run evaluation gate
       run: make eval-gate

@@ -1,3 +1,7 @@
 pytest
 pandas
 numpy
+scikit-learn
+pyyaml
+pytest
+matplotlib
