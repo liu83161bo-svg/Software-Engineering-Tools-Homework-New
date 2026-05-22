@@ -1,0 +1,13 @@
+gates:
+  hard:
+    overall_accuracy:
+      min: 0.85
+    macro_f1:
+      min: 0.80
+  soft:
+    per_slice_accuracy:
+      min: 0.75
+
+regression:
+  max_drop_percent: 5.0
+  history_file: "../reports/metrics_history.json"

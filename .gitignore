@@ -1,4 +1,4 @@
-# ===== Python/IDE/OS =====
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -6,73 +6,48 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+*.egg
+
+# Virtual environments
 .venv/
 venv/
 env/
+
+# IDE
+.vscode/
 .idea/
 *.swp
 *.swo
 *~
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Data files (large generated datasets, not committed)
+data/training_data.csv
+data/*.h5
+data/*.hdf5
+data/*.mat
+
+# Model backups (only keep eval_model.pkl, not temporary training models)
+models/*_temp.pkl
+models/*_backup.pkl
+
+# Reports (can be regenerated)
+reports/*.html
+reports/*.png
+
+# DVC (if used)
+.dvc/
+.cache/
+
+# OS files
 .DS_Store
 Thumbs.db
 
-# ===== 数据 =====
-data/
-
-# ===== 模型权重 =====
-*.pth
-*.pt
-*.pkl
-
-# ===== 日志 =====
+# Logs
+*.log
 logs/
 
-# ===== 训练结果（新旧）=====
-train_result*/
-train_results/
-train_result_*/
-test_result*/
-test_results/
-test_*/
-batch_test*/
-
-# ===== 历史搜索/分析目录 =====
-filter_search_results*/
-filter_test_results*/
-diagnostics/
-old_test_results/
-paper_figures/
-
-# ===== 可再生的输出文件 =====
-*.csv
-*.png
-*.pdf
-*.log
-
-# ===== 备份 =====
-*.bak
-*.orig
-
-# ===== 已废弃的旧脚本（建议直接删除，这里先忽略）=====
-batch_testing_final.py
-batch_testing_final_eng.py
-data_inspector.py
-filter_param_search.py
-filter_test.py
-model_rewrite_02.py
-num_classes_test.py
-original_model.py
-original_testing.py
-testing_batch.py
-testing_final.py
-testing_final_fixed.py
-testing_multi_region.py
-testing_multi_region_fixed.py
-testing_paper.py
-testing_paper_new_bak.py
-testing_rewrite.py
-testing_statistical.py
-train_spectrogram.py
-Model Code Overview.md
-Testing Code Overview.md
-signal_issues.csv
+# MLflow
+mlruns/
