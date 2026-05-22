@@ -7,7 +7,7 @@ test:
 	python -m pytest tests/ -v
 
 data-check:
-	python -c "print('Data check passed.')"
+	python -m pytest tests/test_data_checks.py -v
 
 eval-gate:
 	python -c "print('Eval gate passed.')"
