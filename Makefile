@@ -19,7 +19,7 @@ test-safety:
 	pytest tests/test_safety.py -v
 
 llm-gates:
-	python pipelines/llm_gates.py
+	python pipelines/llm_gate.py
 
 rollback:
 	@echo "Rolling back to previous model version..."
