@@ -1,33 +1,31 @@
-# Monitoring Specification & Alert Thresholds
+# Monitoring Specification & Alert Thresholds — LFP Age Classifier
 
 ## 1. Service Health
-| Signal            | Metric                          | Warning Threshold          | Critical Threshold         | Action on Trigger                                 | Owner       |
-|-------------------|----------------------------------|----------------------------|----------------------------|---------------------------------------------------|-------------|
-| Latency           | P95 inference latency (ms)       | >25ms for 5 min            | >30ms for 2 min            | Auto-scale or revert to previous model            | infra team  |
-| Error Rate        | HTTP 5xx / prediction failures   | >1% for 5 min              | >3% for 1 min              | Pause canary, rollback to last stable version     | infra team  |
-| Throughput        | Requests per second              | <80% of expected           | <50% of expected           | Check upstream load balancer, scale up            | infra team  |
-| Memory            | RAM usage (MB)                   | >80% of limit              | >95% of limit              | Restart container, investigate leak               | infra team  |
+| Signal            | Metric                          | Warning Threshold | Critical Threshold | Action on Trigger | Owner |
+|-------------------|----------------------------------|-------------------|-------------------|-------------------|-------|
+| Latency           | p95 inference latency (ms)       | >25ms for 5 min   | >30ms for 2 min   | Auto-scale or `make rollback` | ML Engineer |
+| Error Rate        | HTTP 5xx / prediction failures   | >1% for 5 min     | >3% for 1 min     | Pause canary, `make rollback` | ML Engineer |
+| Throughput        | Requests per second              | <80% of expected  | <50% of expected  | Check upstream load balancer | Infra Engineer |
+| Memory            | RAM usage (MB)                   | >80% of limit     | >95% of limit     | Restart container, investigate | Infra Engineer |
 
 ## 2. Data Drift Signals
-| Signal            | Method                           | Warning Threshold          | Critical Threshold         | Action on Trigger                                 | Owner       |
-|-------------------|----------------------------------|----------------------------|----------------------------|---------------------------------------------------|-------------|
-| Input Drift       | PSI on signal distribution       | PSI > 0.05                 | PSI > 0.1                  | Investigate new data source; schedule retraining  | data team   |
-| Feature Missing   | % of samples with missing values | >1%                        | >5%                        | Alert upstream pipeline; fix data contract        | data team   |
-| Label Delay       | Time since last labeled sample   | >7 days                    | >14 days                   | Trigger manual labeling pipeline                  | ops team    |
+| Signal            | Method                          | Warning Threshold | Critical Threshold | Action on Trigger | Owner |
+|-------------------|----------------------------------|-------------------|-------------------|-------------------|-------|
+| Input Drift       | PSI on signal distribution       | PSI > 0.05        | PSI > 0.1         | Investigate new data source; schedule retraining | Data Scientist |
+| Golden Set Integrity | % of golden set with missing values | >1%            | >5%               | Block release, re-run `make data-check` | Data Scientist |
 
-## 3. Model Quality Proxies (ground truth delayed)
-| Signal            | Proxy Metric                     | Warning Threshold          | Critical Threshold         | Action on Trigger                                 | Owner       |
-|-------------------|----------------------------------|----------------------------|----------------------------|---------------------------------------------------|-------------|
-| Confidence Drop   | Average prediction entropy       | >0.6                       | >0.8                       | Run eval on golden set; if accuracy drop >2%, rollback | ml team |
-| Output Stability  | % of predictions changing >1 class per week | >10%            | >20%                       | Investigate concept drift; retrain                | ml team     |
-| Golden Set Score  | Accuracy on golden set (weekly)  | <0.80                      | <0.75                      | Rollback to last known good version               | ml team     |
+## 3. Model Quality Proxies
+| Signal            | Proxy Metric                     | Warning Threshold | Critical Threshold | Action on Trigger | Owner |
+|-------------------|----------------------------------|-------------------|-------------------|-------------------|-------|
+| Accuracy Proxy    | Accuracy on golden set (daily)   | <0.85             | <0.80             | Run `make eval-gate`, if fail → `make rollback` | ML Engineer |
+| Confidence Stability | Average prediction entropy    | >0.6              | >0.8              | Investigate concept drift; retrain | ML Engineer |
 
 ## 4. Cost & Resource
-| Signal            | Metric                          | Warning Threshold          | Critical Threshold         | Action on Trigger                                 | Owner       |
-|-------------------|----------------------------------|----------------------------|----------------------------|---------------------------------------------------|-------------|
-| Cost per Request  | Average cost per inference ($)   | >0.01                      | >0.02                      | Optimize model or switch to cheaper tier          | finops team |
-| Daily Budget      | Cumulative cost for the day      | >80% of daily budget       | >100% of daily budget      | Enable degradation mode (use fallback model)      | finops team |
+| Signal            | Metric                          | Warning Threshold | Critical Threshold | Action on Trigger | Owner |
+|-------------------|----------------------------------|-------------------|-------------------|-------------------|-------|
+| Cost per Request  | Average cost per inference ($)   | >0.01             | >0.02             | Optimize model or switch to cheaper tier | FinOps |
+| Daily Budget      | Cumulative cost for the day      | >80% of budget    | >100% of budget   | Enable degradation mode (use fallback model) | FinOps |
 
 ## Alert Routing
-- All **critical** alerts trigger PagerDuty notification to the owner.
-- All **warning** alerts are logged to #alerts Slack channel and reviewed during daily standup.
+- All **critical** alerts trigger notification to the owner (pager/email).
+- All **warning** alerts are logged to #alerts channel and reviewed during daily standup.
