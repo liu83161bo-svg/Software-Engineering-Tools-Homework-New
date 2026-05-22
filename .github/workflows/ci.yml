@@ -2,24 +2,23 @@ name: Homework 1 skeleton with working Makefile and CI
 
 on:
   push:
-    branches: [ main, homework ]
+    branches: [ homework ]
   pull_request:
-    branches: [ main, homework ]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v5
       with:
         python-version: '3.11'
     - name: Install dependencies
-      run: make setup
-    - name: Run tests
+      run: pip install -r requirements.txt
+    - name: Run all tests (including data checks)
       run: make test
-    - name: Data check
+    - name: Run dedicated data contract checks
       run: make data-check
-    - name: Eval gate
+    - name: Eval gate (placeholder)
       run: make eval-gate
