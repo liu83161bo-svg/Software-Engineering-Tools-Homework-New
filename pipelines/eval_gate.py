@@ -13,10 +13,10 @@ import json
 from pathlib import Path
 from sklearn.metrics import f1_score
 
-GOLDEN_PATH = "../data/golden_set.csv"
-MODEL_PATH = "../models/eval_model.pkl"
-THRESHOLDS_PATH = "../configs/thresholds.yaml"
-METRICS_HISTORY = "../reports/metrics_history.json"
+GOLDEN_PATH = "data/golden_set.csv"
+MODEL_PATH = "models/eval_model.pkl"
+THRESHOLDS_PATH = "configs/thresholds.yaml"
+METRICS_HISTORY = "reports/metrics_history.json"
 
 def load_golden():
     df = pd.read_csv(GOLDEN_PATH)
