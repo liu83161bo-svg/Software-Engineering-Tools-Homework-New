@@ -22,3 +22,5 @@ jobs:
       run: make data-check
     - name: Run evaluation gate
       run: make eval-gate
+    - name: Run SLO gate
+      run: make slo-gate
