@@ -31,3 +31,5 @@ jobs:
       run: make slo-gate
     - name: Run safety tests
       run: make test-safety
+    - name: Run LLM release gates
+      run: make llm-gates

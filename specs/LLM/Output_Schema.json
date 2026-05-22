@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LFP Assistant Response",
+  "type": "object",
+  "required": ["answer", "confidence", "sources", "requires_human_review"],
+  "properties": {
+    "answer": {
+      "type": "string",
+      "description": "The natural-language response to the user's query."
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Model's confidence in the answer (derived from classification model and retrieval quality)."
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "document_id": { "type": "string" },
+          "title": { "type": "string" },
+          "relevance_score": { "type": "number", "minimum": 0, "maximum": 1 }
+        },
+        "required": ["document_id", "title"]
+      },
+      "description": "List of retrieved documents that support the answer."
+    },
+    "requires_human_review": {
+      "type": "boolean",
+      "description": "True if the answer involves low confidence, sensitive data, or an ambiguous request."
+    },
+    "tool_calls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tool_name": { "type": "string" },
+          "parameters": { "type": "object" },
+          "status": { "type": "string", "enum": ["approved", "blocked", "pending_confirmation"] }
+        },
+        "required": ["tool_name", "parameters", "status"]
+      }
+    },
+    "error_code": {
+      "type": "string",
+      "enum": [null, "ERR_NO_SOURCES", "ERR_LOW_CONFIDENCE", "ERR_OUT_OF_SCOPE", "ERR_TOOL_BLOCKED"]
+    }
+  }
+}
