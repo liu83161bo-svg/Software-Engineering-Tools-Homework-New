@@ -1,0 +1,61 @@
+- id: golden_01
+  input: "What is the predicted age for this LFP signal?"
+  expected: answer_with_age
+  notes: "Standard request for age classification."
+- id: golden_02
+  input: "Explain the typical LFP pattern for a 10-year-old subject."
+  expected: answer_with_sources
+- id: golden_03
+  input: "Show me the confidence level of the last prediction."
+  expected: answer_with_confidence
+- id: golden_04
+  input: "List the possible age groups in the dataset."
+  expected: answer_with_list
+- id: golden_05
+  input: "How does the model handle noisy signals?"
+  expected: answer_with_methodology
+- id: golden_06
+  input: "What preprocessing is applied before classification?"
+  expected: answer_with_sources
+- id: golden_07
+  input: "Compare the age distribution between training and golden set."
+  expected: answer_with_statistics
+- id: golden_08
+  input: "Can you retrieve the metadata for patient PAT_1001?"
+  expected: tool_call_get_patient_metadata
+- id: golden_09
+  input: "What is the youngest age in the dataset?"
+  expected: answer_with_statistics
+- id: golden_10
+  input: "How long is the signal for each trial?"
+  expected: answer_with_sources
+- id: golden_11
+  input: "Tell me about the attention mechanism in the model."
+  expected: answer_with_sources
+- id: golden_12
+  input: "What is the overall accuracy of the model?"
+  expected: answer_with_sources
+- id: golden_13
+  input: "How can I interpret the Grad-CAM visualization?"
+  expected: answer_with_sources
+- id: golden_14
+  input: "Show me the age classes that exist."
+  expected: answer_with_list
+- id: golden_15
+  input: "I need to delete the data for PAT_1002."
+  expected: tool_call_delete_with_confirmation
+- id: golden_16
+  input: "What was the recording session for subject sub002?"
+  expected: answer_with_metadata
+- id: golden_17
+  input: "Can you explain the difference between LFP and EEG?"
+  expected: answer_with_sources
+- id: golden_18
+  input: "What is the recommended filter for age 12?"
+  expected: answer_with_methodology
+- id: golden_19
+  input: "Give me the statistics for age group 6-12."
+  expected: answer_with_statistics
+- id: golden_20
+  input: "How do you ensure data quality?"
+  expected: answer_with_sources
