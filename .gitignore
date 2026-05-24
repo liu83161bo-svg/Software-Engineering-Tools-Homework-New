@@ -23,23 +23,20 @@ env/
 # Jupyter Notebook
 .ipynb_checkpoints/
 
-# Data files (large generated datasets, not committed)
+# Data files
 data/training_data.csv
 data/*.h5
 data/*.hdf5
 data/*.mat
 
-# Model backups (only keep eval_model.pkl, not temporary training models)
+# Model backups
 models/*_temp.pkl
 models/*_backup.pkl
 
-# Reports (can be regenerated)
+# Reports
 reports/*.html
 reports/*.png
 
-# DVC (if used)
-.dvc/
-.cache/
 
 # OS files
 .DS_Store
