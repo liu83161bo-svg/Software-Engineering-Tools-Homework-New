@@ -1,0 +1,4 @@
+[core]
+    remote = myremote
+['remote "myremote"']
+    url = D:\2nd_semester_2025_26\Software Engineering tools\dvc-remote
